@@ -13,11 +13,13 @@ begin
 	Pkg.add("Plots")
 	Pkg.add("Suppressor")
 	using LaTeXStrings, MultivariateStats, Plots, Printf, Statistics, Suppressor
+end
 
+begin
 	Pkg.activate(".")
 	Pkg.Registry.add("General")  # only needed when installing Julia for the first time
 	Pkg.Registry.add(RegistrySpec(url="https://github.com/ACEsuit/ACEregistry"))
-	Pkg.add("ACEpotentials")
+	Pkg.add(PackageSpec(name="ACEpotentials", version="0.6.7"))
 	using ACEpotentials
 
 	using JSON

@@ -9,6 +9,8 @@ begin
 	# add and load general packages used in this notebook.
 	using Pkg
 	Pkg.activate(".")
+	Base.active_project()
+	Pkg.instantiate()
 	Pkg.add("LaTeXStrings")
 	Pkg.add("MultivariateStats")
 	Pkg.add("Plots")
@@ -21,7 +23,7 @@ begin
 	Pkg.activate(".")
 	Pkg.Registry.add("General")  # only needed when installing Julia for the first time
 	Pkg.Registry.add(RegistrySpec(url="https://github.com/ACEsuit/ACEregistry"))
-	Pkg.add("ACEpotentials")
+	Pkg.add(PackageSpec(name="ACEpotentials", version="0.6.7"))
 	using ACEpotentials
 end;
 
@@ -80,8 +82,10 @@ To illustrate the procedure for loading extended xyz data from a file, we downlo
 # ╔═╡ bf1b81ac-97eb-46ee-abfb-f0b19cad2a3c
 begin
 	#Big dataset
-	download("https://www.dropbox.com/scl/fi/mzd7zcb1x1l4rw5eswxcd/gp_iter6_sparse9k.xml.xyz?rlkey=o4avtpkka6jnqn7qg375vg7z0&dl=0",
-	         "Si_dataset.xyz");
+	if !isfile("Si_dataset.xyz")
+		download("https://www.dropbox.com/scl/fi/z6lvcpx3djp775zenz032/Si-PRX-2018.xyz?rlkey=ja5e9z99c3ta1ugra5ayq5lcv&st=cs6g7vbu&dl=1",
+			 "Si_dataset.xyz");
+	end
 	
 	Si_dataset = read_extxyz("Si_dataset.xyz");
 end;
